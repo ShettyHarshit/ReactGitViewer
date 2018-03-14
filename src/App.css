@@ -20,12 +20,18 @@
 
 .App-intro {
   font-size: large;
+  width: 60%;
+  text-align: center;
 }
 
 .git-avatar{
   width: 200px;
   height: 200px;
-  
+
+}
+
+.search--box{
+  padding: 30px;
 }
 
 @keyframes App-logo-spin {
