@@ -24,24 +24,27 @@ const API = 'https://api.github.com/users';
         fetch(url)
         .then(res => res.json())
         .then(data => {
-          this.props.onChange(data.name, data.followers, data.public_repos);
+          console.log(data)
+          
+          this.props.onChange(
+            data.name, 
+            data.followers, 
+            data.public_repos, 
+            data.avatar_url, 
+            data.location
+          );
           return data;
         })
         .catch(error => console.log("Oops! . There Is A Problem"));
       }
     }
 
-    class FuckYou extends React.Component {
-      render () {
-        return <p className="App-intro">Btw, Fuck You</p>;
-      }
-    }
 
     class HeaderSpinner extends React.Component {
       render() {
         return <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to Git-React Viewahh</h1>
+            <h1 className="App-title">GitHub API fetch on React.js</h1>
           </header>;
       }
     }
@@ -64,7 +67,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "you twat",
+      username: "fellow GitHub user",
       repo: 0,
       followers: 0
     };
@@ -77,7 +80,6 @@ class App extends Component {
         <HeaderSpinner />
         <SearchBar onChange={this.changeName} />
         <Profile username={this.state.username} repo={this.state.repo} followers={this.state.followers} />
-        <FuckYou />
       </div>;
   }
 }
