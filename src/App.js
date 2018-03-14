@@ -61,10 +61,13 @@ class Profile extends Component {
   state = {};
   render() {
     return <center>
-        <figure class="snip1578">
-          <img src={this.props.url} alt="profile-sample4" />
+        <figure className="snip1578">
+          <img src={this.props.url} alt="" />
           <figcaption>
             <h3>{this.props.username}</h3>
+            <h4>{this.props.location}</h4>
+            <h5>{this.props.followers} Followers</h5>
+            <h5>{this.props.repo} Public Repos</h5>
           </figcaption>
         </figure>
       </center>;
@@ -75,19 +78,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "fellow GitHub user",
+      username: "T'Challa",
       repo: 0,
-      followers: 0,
-      url: "https://octodex.github.com/images/octobiwan.jpg"
+      followers: "loads",
+      url: "https://octodex.github.com/images/octobiwan.jpg",
+      location: "Wakanda"
     };
   }
 
-  changeName = (theBloodyName, follo, repp, url) =>
+  changeName = (theBloodyName, follo, repp, url, location) =>
     this.setState({
       username: theBloodyName,
       followers: follo,
       repo: repp,
-      url: url
+      url: url,
+      location: location
     });
 
   render() {
@@ -100,6 +105,7 @@ class App extends Component {
           repo={this.state.repo}
           followers={this.state.followers}
           url={this.state.url}
+          location={this.state.location}
         />
       </div>
     );
