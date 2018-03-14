@@ -25,10 +25,11 @@ import './App.css';
 
       handleForm(e) {
         e.preventDefault();
-        let username = this.refs.username.value;
-        console.log(username);
+        let user = this.refs.username.value;
+        console.log(user);
         this.refs.username.value = "";
-        // this.props.fetchProfile(username);
+        this.props.onChange(user)
+        // this.props.setName(username);
         // this.refs.username.getDOMNode().value = "";
       }
     }
@@ -48,13 +49,32 @@ import './App.css';
       }
     }
 
+    class Profile extends Component {
+      state = {}
+      render() { 
+        return <div>Hello {this.props.username}</div>;
+      }
+    }
+     
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "ShettyHarshit",
+    };
+  }
+
+  changeName = (theBloodyName) => this.setState({username: theBloodyName})
+  
   render() {
     return (
       <div className="App">
-        <HeaderSpinner/>
-        <FuckYou/>
-        <SearchBar/>
+        <HeaderSpinner />
+        <FuckYou />
+        <SearchBar onChange={this.changeName} />
+        <Profile username={this.state.username} />
       </div>
     );
   }
