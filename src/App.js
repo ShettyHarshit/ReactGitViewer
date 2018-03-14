@@ -61,18 +61,13 @@ class Profile extends Component {
   state = {};
   render() {
     return <center>
-    <div className="App-intro">
-      <p className="">
-        <img className="git-avatar" src={this.props.url} alt="" />
-      </p>
-      <br/>
-      <div className="">
-        <p>Hey, {this.props.username}</p>
-        <p>Followers: {this.props.followers}</p>
-        <p>Repositories: {this.props.repo}</p>
-      </div>
-    </div>
-    </center>;
+        <figure class="snip1578">
+          <img src={this.props.url} alt="profile-sample4" />
+          <figcaption>
+            <h3>{this.props.username}</h3>
+          </figcaption>
+        </figure>
+      </center>;
   }
 }
 
