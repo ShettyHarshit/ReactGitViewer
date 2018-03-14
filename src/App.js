@@ -2,15 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// const API = 'https://api.github.com/users';
-
-  let url = `https://api.github.com/users/ShettyHarshit`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      // console.log(data)
-    })
-    .catch((error) => console.log('Oops! . There Is A Problem'))
+const API = 'https://api.github.com/users';
 
     class SearchBar extends React.Component {
       render() {
@@ -28,15 +20,20 @@ import './App.css';
         let user = this.refs.username.value;
         console.log(user);
         this.refs.username.value = "";
-        this.props.onChange(user)
-        // this.props.setName(username);
-        // this.refs.username.getDOMNode().value = "";
+        let url = `${API}/${user}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          this.props.onChange(data.name, data.followers, data.public_repos);
+          return data;
+        })
+        .catch(error => console.log("Oops! . There Is A Problem"));
       }
     }
 
     class FuckYou extends React.Component {
       render () {
-        return <p className="App-intro">Btw, SIUUUUUUUUUUUUU</p>;
+        return <p className="App-intro">Btw, Fuck You</p>;
       }
     }
 
@@ -52,7 +49,12 @@ import './App.css';
     class Profile extends Component {
       state = {}
       render() { 
-        return <div>Hello {this.props.username}</div>;
+        return <div className="App-intro">
+            Hello {this.props.username}<br/>
+            Followers:  {this.props.followers}<br/>
+            Repositories: {this.props.repo}
+            <img src={this.props.url} alt=""/>
+          </div>;
       }
     }
      
@@ -62,21 +64,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "ShettyHarshit",
+      username: "you twat",
+      repo: 0,
+      followers: 0
     };
   }
 
-  changeName = (theBloodyName) => this.setState({username: theBloodyName})
-  
+  changeName = (theBloodyName, follo, repp) => this.setState({username: theBloodyName, followers: follo, repo: repp})
+
   render() {
-    return (
-      <div className="App">
+    return <div className="App">
         <HeaderSpinner />
-        <FuckYou />
         <SearchBar onChange={this.changeName} />
-        <Profile username={this.state.username} />
-      </div>
-    );
+        <Profile username={this.state.username} repo={this.state.repo} followers={this.state.followers} />
+        <FuckYou />
+      </div>;
   }
 }
 
