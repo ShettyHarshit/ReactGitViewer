@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
+import _ from "lodash";
 import "./App.css";
 import "./profile.css";
 
 const API = "https://api.github.com/users";
+const repos = "repos";
 
 class SearchBar extends React.Component {
   render() {
@@ -28,11 +30,27 @@ class SearchBar extends React.Component {
     console.log(user);
     this.refs.username.value = "";
     let url = `${API}/${user}`;
+    let repourl = `${API}/${user}/${repos}`;
+
+
+    fetch(repourl)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        const list = _.map(data, 
+          function(o) {
+            let x = _.get(o, "name");
+            return x;
+          }
+        );
+        console.log(list);
+        return list;
+        });
+      
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data.avatar_url);
-
+        console.log(data);
         this.props.onChange(
           data.name,
           data.followers,
@@ -74,12 +92,20 @@ class Profile extends Component {
   }
 }
 
+class RepoList extends Component {
+  state = {}
+  render() { 
+    return <div>
+
+    </div>;
+  }
+}
+
 class App extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       username: "T'Challa",
-      repo: 0,
       followers: "loads",
       url: "https://octodex.github.com/images/octobiwan.jpg",
       location: "Wakanda"
