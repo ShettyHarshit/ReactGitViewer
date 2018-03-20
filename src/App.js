@@ -27,7 +27,6 @@ class SearchBar extends React.Component {
   handleForm(e) {
     e.preventDefault();
     let user = this.refs.username.value;
-    console.log(user);
     this.refs.username.value = "";
     let url = `${API}/${user}`;
     let repourl = `${API}/${user}/${repos}`;
@@ -36,7 +35,6 @@ class SearchBar extends React.Component {
     fetch(repourl)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         const list = _.map(data, 
           function(o) {
             let x = _.get(o, "name");
@@ -50,7 +48,7 @@ class SearchBar extends React.Component {
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.props.onChange(
           data.name,
           data.followers,
@@ -63,6 +61,7 @@ class SearchBar extends React.Component {
       .catch(error => console.log("Oops! . There Is A Problem"));
   }
 }
+
 
 class HeaderSpinner extends React.Component {
   render() {
@@ -95,9 +94,11 @@ class Profile extends Component {
 class RepoList extends Component {
   state = {}
   render() { 
+    // _.map({this.props.repos}, function name(params) {
     return <div>
-
+      
     </div>;
+    // })
   }
 }
 
@@ -108,7 +109,8 @@ class App extends Component {
       username: "T'Challa",
       followers: "loads",
       url: "https://octodex.github.com/images/octobiwan.jpg",
-      location: "Wakanda"
+      location: "Wakanda",
+      repolist: []
     };
   }
 
@@ -133,6 +135,7 @@ class App extends Component {
           url={this.state.url}
           location={this.state.location}
         />
+        <RepoList repos={this.state.repolist}/>
       </div>
     );
   }
